@@ -45,8 +45,7 @@ public class Shuttle {
         this.debug = debug;
     }
     private Bubble generateBall(){
-        this.actual.getBalltype();
-        this.next.getBalltype();
-        
+        this.actual.init(center, angle);
+        return actual;
     }
 }
