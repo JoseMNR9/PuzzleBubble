@@ -5,6 +5,7 @@
 package pedro.ieslaencanta.com.dawpuzzletemplate;
 
 import javafx.geometry.Dimension2D;
+import javafx.geometry.Point2D;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
@@ -30,6 +31,7 @@ public class Board implements IKeyListener {
 
     private boolean debug;
     private boolean left_press, right_press;
+    private Bubble ball;
 
     /**
      * constructor
@@ -113,10 +115,16 @@ public class Board implements IKeyListener {
 
     private void update() {
         //actualizar el juego
+        if (this.ball != null && this.ball.getBalltype() != null) {
+        this.ball.move(this.game_zone);
+        }
 
     }
 
     private void render() {
+        if (this.ball != null && this.ball.getBalltype() != null) {
+        this.ball.paint(gc);
+        }
     }
 
     private void process_input() {
@@ -142,7 +150,7 @@ public class Board implements IKeyListener {
      */
     public void paintBackground() {
         Image imagen = Resources.getInstance().getImage("fondos");
-        this.bggc.drawImage(imagen, 16, 17,this.original_size.getWidth(),this.original_size.getHeight(),0,0,this.original_size.getWidth()*Game.SCALE/2,this.original_size.getHeight()*Game.SCALE/2);
+        this.bggc.drawImage(imagen, 16, 17,this.original_size.getWidth(),this.original_size.getHeight(),0,0,this.original_size.getWidth()*Game.SCALE,this.original_size.getHeight()*Game.SCALE);
         //se dibuja la línea del fondo
         if (this.debug) {
             this.Debug();
@@ -181,7 +189,12 @@ public class Board implements IKeyListener {
                 this.paintBackground();
                 break;
             case SPACE:
-
+                this.ball=new Bubble();
+                //se coloca el tipo de forma aleatorioa
+                this.ball.setBalltype(BubbleType.values()[ (int)(Math.random()*BubbleType.values().length)]);
+                //se pone la posición (centro) y ángulo aleatorio
+                this.ball.init(new Point2D((this.game_zone.getMaxX() - this.game_zone.getWidth() / 2),(this.game_zone.getMaxY() - 18)), (float) (Math.random()*360));
+                this.ball.play();
                 break;
             case P:
 
