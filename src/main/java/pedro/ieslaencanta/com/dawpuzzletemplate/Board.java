@@ -32,7 +32,7 @@ public class Board implements IKeyListener {
     private boolean debug;
     private boolean left_press, right_press;
     private Bubble ball;
-
+    private Shuttle shuttle;
     /**
      * constructor
      *
@@ -44,7 +44,7 @@ public class Board implements IKeyListener {
         this.original_size = original;
         this.right_press = false;
         this.left_press = false;
-
+        this.shuttle = new Shuttle(new Point2D((this.game_zone.getMaxX() - this.game_zone.getWidth() / 2),(this.game_zone.getMaxY() - 20)));
         this.debug = false;
 
     }
@@ -125,13 +125,15 @@ public class Board implements IKeyListener {
         if (this.ball != null && this.ball.getBalltype() != null) {
         this.ball.paint(gc);
         }
+        
+        this.shuttle.paint(gc);
     }
 
     private void process_input() {
         if (this.left_press) {
-
+            this.shuttle.moveLeft();
         } else if (this.right_press) {
-
+            this.shuttle.moveRight();
         } else {
 
         }
@@ -189,11 +191,11 @@ public class Board implements IKeyListener {
                 this.paintBackground();
                 break;
             case SPACE:
-                this.ball=new Bubble();
+                //this.ball=new Bubble();
                 //se coloca el tipo de forma aleatorioa
-                this.ball.setBalltype(BubbleType.values()[ (int)(Math.random()*BubbleType.values().length)]);
+                this.ball=this.shuttle.shoot();
                 //se pone la posición (centro) y ángulo aleatorio
-                this.ball.init(new Point2D((this.game_zone.getMaxX() - this.game_zone.getWidth() / 2),(this.game_zone.getMaxY() - 18)), (float) (Math.random()*360));
+                //this.ball.init(new Point2D((this.game_zone.getMaxX() - this.game_zone.getWidth() / 2),(this.game_zone.getMaxY() - 18)), (float) (Math.random()*360));
                 this.ball.play();
                 break;
             case P:
