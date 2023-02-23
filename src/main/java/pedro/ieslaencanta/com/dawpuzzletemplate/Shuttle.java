@@ -6,6 +6,7 @@ package pedro.ieslaencanta.com.dawpuzzletemplate;
 
 import javafx.geometry.Point2D;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.Image;
 
 /**
  *
@@ -60,7 +61,13 @@ public class Shuttle {
         temp.setAngulo(angle);
         return temp;
     }
-
+    public Point2D calcArrow(){
+        Point2D p=null;
+        if (this.angle>=90 && this.angle<=90){
+            p= new Point2D(o,o);
+        }
+        return p;
+    }
     public void paint(GraphicsContext gc) {
         Resources r = Resources.getInstance();
         gc.drawImage(r.getImage("spriters"),
@@ -73,19 +80,31 @@ public class Shuttle {
                 (this.center.getY() - 41 / 2) * Game.SCALE,
                 61 * Game.SCALE,
                 41 * Game.SCALE);
+        Image todos= Resources.getInstance().getImage("spriters");
+        Point2D p = this.calcArrow();
+        gc.drawImage(r.getImage("spriters"),
+                2,
+                1545,
+                62,
+                41,
+                //dibujar en el lienzo
+                (this.center.getX() - 61 / 2) * Game.SCALE,
+                (this.center.getY() - 41 / 2) * Game.SCALE,
+                61 * Game.SCALE,
+                41 * Game.SCALE);
     }
 
     public void moveLeft() {
         this.angle -= this.incr;
-        if (this.angle > Shuttle.MAX_ANGLE) {
-            this.angle = Shuttle.MAX_ANGLE;
+        if (this.angle > Shuttle.MIN_ANGLE) {
+            this.angle = Shuttle.MIN_ANGLE;
         }
     }
 
     public void moveRight() {
         this.angle += this.incr;
-        if (this.angle < Shuttle.MIN_ANGLE) {
-            this.angle = Shuttle.MIN_ANGLE;
+        if (this.angle < Shuttle.MAX_ANGLE) {
+            this.angle = Shuttle.MAX_ANGLE;
         }
     }
 }
