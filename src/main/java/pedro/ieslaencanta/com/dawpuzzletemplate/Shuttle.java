@@ -33,6 +33,20 @@ public class Shuttle {
     }
 
     /**
+     * @return the angle
+     */
+    public float getAngle() {
+        return angle;
+    }
+
+    /**
+     * @param angle the angle to set
+     */
+    public void setAngle(float angle) {
+        this.angle = angle;
+    }
+
+    /**
      * @return the actual
      */
     public Bubble getActual() {
@@ -58,13 +72,13 @@ public class Shuttle {
         this.actual = this.next;
         this.next = this.generateBall();
         temp.setPosicion(center);
-        temp.setAngulo(angle);
+        temp.setAngulo(getAngle());
         return temp;
     }
     public Point2D calcArrow(){
         Point2D p=null;
-        if (this.angle>=90 && this.angle<=90){
-            p= new Point2D(o,o);
+        if (this.getAngle()>=90 && this.getAngle()<=90){
+            p= new Point2D(0,0);
         }
         return p;
     }
@@ -95,16 +109,16 @@ public class Shuttle {
     }
 
     public void moveLeft() {
-        this.angle -= this.incr;
-        if (this.angle > Shuttle.MIN_ANGLE) {
-            this.angle = Shuttle.MIN_ANGLE;
+        this.setAngle(this.getAngle() - this.incr);
+        if (this.getAngle() > Shuttle.MIN_ANGLE) {
+            this.setAngle(Shuttle.MIN_ANGLE);
         }
     }
 
     public void moveRight() {
-        this.angle += this.incr;
-        if (this.angle < Shuttle.MAX_ANGLE) {
-            this.angle = Shuttle.MAX_ANGLE;
+        this.setAngle(this.getAngle() + this.incr);
+        if (this.getAngle() < Shuttle.MAX_ANGLE) {
+            this.setAngle(Shuttle.MAX_ANGLE);
         }
     }
 }
