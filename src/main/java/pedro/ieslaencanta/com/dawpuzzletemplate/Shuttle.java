@@ -80,6 +80,15 @@ public class Shuttle {
         if (this.getAngle()>=90 && this.getAngle()<=90){
             p= new Point2D(0,0);
         }
+        int imagen = (int)(90.0f - this.angle/this.incr);
+        if(this.angle < 90){
+           int f = imagen/16;
+           int c = imagen%16;
+           if(imagen > 63){
+               f--;
+               c--;
+           }
+        }
         return p;
     }
     public void paint(GraphicsContext gc) {
