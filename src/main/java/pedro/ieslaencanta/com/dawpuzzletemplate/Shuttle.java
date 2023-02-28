@@ -28,8 +28,12 @@ public class Shuttle {
     public Shuttle(Point2D center) {
         this.center = center;
          this.actual = new Bubble();
-        this.angle = 0.0f;
+        this.angle = 90.0f;
         this.next = new Bubble();
+        
+        for(float i=90; i<0; i= i - this.incr){
+            
+        }
     }
 
     /**
@@ -80,15 +84,19 @@ public class Shuttle {
         if (this.getAngle()>=90 && this.getAngle()<=90){
             p= new Point2D(0,0);
         }
-        int imagen = (int)(90.0f - this.angle/this.incr);
+        int imagen = (int)((90.0f - this.angle)/this.incr);
         if(this.angle < 90){
            int f = imagen/16;
            int c = imagen%16;
+          
            if(imagen > 63){
                f--;
                c--;
            }
+            p = new Point2D(c,f);
+           
         }
+       
         return p;
     }
     public void paint(GraphicsContext gc) {
@@ -105,29 +113,31 @@ public class Shuttle {
                 41 * Game.SCALE);
         Image todos= Resources.getInstance().getImage("spriters");
         Point2D p = this.calcArrow();
+        if(p != null){
         gc.drawImage(r.getImage("spriters"),
-                2,
-                1545,
-                62,
-                41,
+                65 * p.getX(),
+                1545 + (65 * p.getY()),
+                64,
+                64,
                 //dibujar en el lienzo
-                (this.center.getX() - 61 / 2) * Game.SCALE,
-                (this.center.getY() - 41 / 2) * Game.SCALE,
-                61 * Game.SCALE,
-                41 * Game.SCALE);
+                (this.center.getX() - 64 / 2) * Game.SCALE,
+                (this.center.getY() - 64 / 2) * Game.SCALE,
+                64 * Game.SCALE,
+                64 * Game.SCALE);
+        }
     }
 
     public void moveLeft() {
-        this.setAngle(this.getAngle() - this.incr);
-        if (this.getAngle() > Shuttle.MIN_ANGLE) {
-            this.setAngle(Shuttle.MIN_ANGLE);
+        this.angle -= this.incr;
+        if (this.angle < Shuttle.MIN_ANGLE) {
+            this.angle=Shuttle.MIN_ANGLE;
         }
     }
 
     public void moveRight() {
-        this.setAngle(this.getAngle() + this.incr);
-        if (this.getAngle() < Shuttle.MAX_ANGLE) {
-            this.setAngle(Shuttle.MAX_ANGLE);
+        this.angle += this.incr;
+        if (this.angle > Shuttle.MAX_ANGLE) {
+            this.angle=Shuttle.MAX_ANGLE;
         }
     }
 }
