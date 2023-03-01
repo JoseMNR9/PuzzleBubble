@@ -17,6 +17,8 @@ public class Shuttle {
     private float angle;
     private static final float MIN_ANGLE = 0f;
     private static final float MAX_ANGLE = 180.0f;
+    private static final int WIDTH = 64;
+    private static final int HEIGTH = 64;
     private Bubble actual;
     private Bubble next;
     private float incr = 180f / 128f;
@@ -73,10 +75,12 @@ public class Shuttle {
 
     public Bubble shoot() {
         Bubble temp = this.actual;
+        temp.setAngulo(360 - this.angle);
+        temp.setPosicion(center);
         this.actual = this.next;
         this.next = this.generateBall();
-        temp.setPosicion(center);
-        temp.setAngulo(getAngle());
+        
+        
         return temp;
     }
     public Point2D calcArrow(){
@@ -96,6 +100,18 @@ public class Shuttle {
             p = new Point2D(c,f);
            
         }
+        if(this.angle > 90){
+            imagen = (int)((180.0f - this.angle)/this.incr);
+            int f= 3 - imagen/16 ;
+            int c= 15 - imagen%16 ;
+            if(imagen > 63){
+               f--;
+               c--;
+            }
+            p = new Point2D(c,f);
+            
+            
+        }
        
         return p;
     }
@@ -114,28 +130,43 @@ public class Shuttle {
         Image todos= Resources.getInstance().getImage("spriters");
         Point2D p = this.calcArrow();
         if(p != null){
-        gc.drawImage(r.getImage("spriters"),
-                65 * p.getX(),
-                1545 + (65 * p.getY()),
-                64,
-                64,
-                //dibujar en el lienzo
-                (this.center.getX() - 64 / 2) * Game.SCALE,
-                (this.center.getY() - 64 / 2) * Game.SCALE,
-                64 * Game.SCALE,
-                64 * Game.SCALE);
+            if(this.angle <= 90){
+                gc.drawImage(r.getImage("spriters"),
+                        65 * p.getX(),
+                        1545 + (65 * p.getY()),
+                        Shuttle.WIDTH,
+                        Shuttle.HEIGTH,
+                        //dibujar en el lienzo
+                        (this.center.getX() - Shuttle.WIDTH / 2) * Game.SCALE,
+                        (this.center.getY() - Shuttle.HEIGTH / 2) * Game.SCALE,
+                        Shuttle.WIDTH * Game.SCALE,
+                        Shuttle.HEIGTH * Game.SCALE);
+            } else{
+                if(this.angle > 90){
+                    gc.drawImage(r.getImage("spriters"),
+                            65 * p.getX(),
+                            1545 + (65 * p.getY()),
+                            Shuttle.WIDTH,
+                            Shuttle.HEIGTH,
+                            //dibujar en el lienzo
+                            (this.center.getX() - Shuttle.WIDTH / 2+ Shuttle.WIDTH) * Game.SCALE ,
+                            (this.center.getY() - Shuttle.HEIGTH / 2) * Game.SCALE,
+                            -Shuttle.WIDTH * Game.SCALE,
+                            Shuttle.HEIGTH * Game.SCALE);
+                }
+            }
         }
     }
 
     public void moveLeft() {
-        this.angle -= this.incr;
+        this.angle = this.angle - this.incr;
         if (this.angle < Shuttle.MIN_ANGLE) {
             this.angle=Shuttle.MIN_ANGLE;
         }
     }
 
     public void moveRight() {
-        this.angle += this.incr;
+        this.angle = this.angle + this.incr;
         if (this.angle > Shuttle.MAX_ANGLE) {
             this.angle=Shuttle.MAX_ANGLE;
         }
