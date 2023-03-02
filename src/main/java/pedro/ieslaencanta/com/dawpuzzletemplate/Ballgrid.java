@@ -4,6 +4,8 @@
  */
 package pedro.ieslaencanta.com.dawpuzzletemplate;
 
+import javafx.geometry.Point2D;
+
 /**
  *
  * @author DAWTarde
@@ -56,9 +58,15 @@ public class Ballgrid {
     public void setStarty(int starty) {
         this.starty = starty;
     }
+    
     public boolean colision(Bubble b){
+        int f,c;
         if(b.getPosicion().getY() - (Bubble.WIDTH / 2) <= this.starty){
             b.stop();
+            f=(int)((b.getPosicion().getY()-this.starty)/Bubble.HEIGHT);
+            c=(int)((b.getPosicion().getX()-this.startx)%Bubble.WIDTH);
+           // this.bubblegrid[Ballgrid.ROWS][Ballgrid.COLS]= b;
+            //b.getPosicion(new Point2D(b.getPosicion().getY()/16 - (Bubble.WIDTH / 2),b.getPosicion().getX()%16 - (Bubble.WIDTH / 2)));
             return true;
         }else
             return false;
