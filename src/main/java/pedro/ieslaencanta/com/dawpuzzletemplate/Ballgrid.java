@@ -5,6 +5,7 @@
 package pedro.ieslaencanta.com.dawpuzzletemplate;
 
 import javafx.geometry.Point2D;
+import javafx.scene.canvas.GraphicsContext;
 
 /**
  *
@@ -24,10 +25,12 @@ public class Ballgrid {
     public Ballgrid(int startx, int starty){
         this.startx = startx;
         this.starty = starty;
+        this.bubblegrid = new Bubble[Ballgrid.ROWS][Ballgrid.COLS];
     }
     public Ballgrid(BubbleType matrix[][],int startx, int starty){
         this.startx = startx;
         this.starty = starty;
+        this.bubblegrid = new Bubble[Ballgrid.ROWS][Ballgrid.COLS];
         //matrix = BubbleType.values();
     }
 
@@ -58,17 +61,28 @@ public class Ballgrid {
     public void setStarty(int starty) {
         this.starty = starty;
     }
+   
     
     public boolean colision(Bubble b){
         int f,c;
         if(b.getPosicion().getY() - (Bubble.WIDTH / 2) <= this.starty){
             b.stop();
-            f=(int)((b.getPosicion().getY()-this.starty)/Bubble.HEIGHT);
-            c=(int)((b.getPosicion().getX()-this.startx)%Bubble.WIDTH);
-           // this.bubblegrid[Ballgrid.ROWS][Ballgrid.COLS]= b;
-            //b.getPosicion(new Point2D(b.getPosicion().getY()/16 - (Bubble.WIDTH / 2),b.getPosicion().getX()%16 - (Bubble.WIDTH / 2)));
+            f=0;//(int)((b.getPosicion().getY()-this.starty)/Bubble.HEIGHT);
+            c=(int)((b.getPosicion().getX()-this.startx)/Bubble.WIDTH);
+            this.bubblegrid[f][c]= b;
+            //calculamos la posicion de la bola donde tenemos que moverla(dist*pos+1/2de la dist
+            b.setPosicion(new Point2D( this.startx+Bubble.WIDTH*c+Bubble.WIDTH/2,this.starty+Bubble.HEIGHT*f+Bubble.HEIGHT/2));
             return true;
         }else
             return false;
+    }
+     public void paint(GraphicsContext gc){
+        for(int i=0; i<this.bubblegrid.length;i++){
+            for(int j=0; j<this.bubblegrid[i].length;j++){
+               if(this.bubblegrid[i][j] != null)
+                this.bubblegrid[i][j].paint(gc);
+                 
+            }
+        }
     }
 }

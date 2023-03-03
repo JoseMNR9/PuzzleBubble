@@ -120,7 +120,9 @@ public class Board implements IKeyListener {
         this.ball.move(this.game_zone);
         }
         if(this.ball != null && this.grid != null){
-            this.grid.colision(ball);
+           if(this.grid.colision(ball)){
+               this.ball=null;
+           }
         }
 
     }
@@ -131,13 +133,14 @@ public class Board implements IKeyListener {
         }
         
         this.shuttle.paint(gc);
+        this.grid.paint(gc);
     }
 
     private void process_input() {
         if (this.left_press) {
-            this.shuttle.moveLeft();
-        } else if (this.right_press) {
             this.shuttle.moveRight();
+        } else if (this.right_press) {
+            this.shuttle.moveLeft();
         } else {
 
         }
