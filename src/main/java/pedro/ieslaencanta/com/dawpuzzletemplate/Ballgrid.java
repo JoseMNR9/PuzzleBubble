@@ -66,7 +66,7 @@ public class Ballgrid {
     }
 
     public boolean colision(Bubble b) {
-        int f, c;
+        int f = 0, c = 0;
         boolean colision = false;
         if (b.getPosicion().getY() - (Bubble.WIDTH / 2) <= this.starty) {
             b.stop();
@@ -80,9 +80,10 @@ public class Ballgrid {
             for (int i = 0; i < this.bubblegrid.length && !colision; i++) {
                 for (int j = 0; j < this.bubblegrid[i].length && !colision; j++) {
                     if (this.bubblegrid[i][j] != null && b.getPosicion().distance(this.bubblegrid[i][j].getPosicion()) <= 16) {
-                        b.stop();;
+                        b.stop();
                         colision = true;
-                         this.bubblegrid[i][j] = b;
+                        this.bubblegrid[i][j+1] = b;
+                        b.setPosicion(new Point2D(Bubble.WIDTH - this.bubblegrid[i][j].getPosicion().getX() + Bubble.WIDTH / 2, Bubble.HEIGHT - this.bubblegrid[i][j+1].getPosicion().getY() + Bubble.HEIGHT / 2));
                     }
 
                 }
