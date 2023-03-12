@@ -156,6 +156,12 @@ public class Shuttle {
                 }
             }
         }
+        //if (this.actual != null){
+        //    this.actual.paint(gc);
+        //}
+        //if(this.next != null){
+        //    this.next.paint(gc);
+        //}
     }
 
     public void moveLeft() {

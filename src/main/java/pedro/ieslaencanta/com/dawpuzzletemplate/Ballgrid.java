@@ -21,19 +21,19 @@ public class Ballgrid {
     private Bubble bubblegrid[][];
 
     public Ballgrid() {
-        this.bubblegrid = new Bubble[Ballgrid.COLS][Ballgrid.ROWS];
+        this.bubblegrid = new Bubble[Ballgrid.ROWS][Ballgrid.COLS];
     }
 
     public Ballgrid(int startx, int starty) {
         this.startx = startx;
         this.starty = starty;
-        this.bubblegrid = new Bubble[Ballgrid.COLS][Ballgrid.ROWS];
+        this.bubblegrid = new Bubble[Ballgrid.ROWS][Ballgrid.COLS];
     }
 
     public Ballgrid(BubbleType matrix[][], int startx, int starty) {
         this.startx = startx;
         this.starty = starty;
-        this.bubblegrid = new Bubble[Ballgrid.COLS][Ballgrid.ROWS];
+        this.bubblegrid = new Bubble[Ballgrid.ROWS][Ballgrid.COLS];
         //matrix = BubbleType.values();
     }
 
@@ -87,11 +87,11 @@ public class Ballgrid {
                         c = (int) ((b.getPosicion().getX() - this.startx) / Bubble.WIDTH);
                         this.bubblegrid[f][c] = b;
                         if (j % 2 == 0) {
-                            b.setPosicion(new Point2D(this.bubblegrid[f][c].getPosicion().getX() + Bubble.WIDTH / 2,
-                                    f*Bubble.HEIGHT+ starty));
+                            b.setPosicion(new Point2D( this.bubblegrid[f][c].getPosicion().getX() +  Bubble.WIDTH / 2  ,
+                                    f * Bubble.HEIGHT + this.starty + Bubble.HEIGHT / 2));
                         } else {
-                            b.setPosicion(new Point2D(this.bubblegrid[f][c].getPosicion().getX() + Bubble.WIDTH ,
-                                    f*Bubble.HEIGHT+Bubble.HEIGHT / 2+ starty));
+                            b.setPosicion(new Point2D( this.bubblegrid[f][c].getPosicion().getX()  +  Bubble.WIDTH / 2 ,
+                                    f * Bubble.HEIGHT  + this.starty + Bubble.HEIGHT/2));
                         }
                     }
 

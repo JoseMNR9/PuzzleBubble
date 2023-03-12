@@ -132,7 +132,9 @@ public class Board implements IKeyListener {
         this.ball.paint(gc);
         }
         
-        this.shuttle.paint(gc);
+        //if (this.shuttle != null){
+            this.shuttle.paint(gc);
+        //}
         this.grid.paint(gc);
     }
 
