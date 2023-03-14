@@ -73,25 +73,32 @@ public class Ballgrid {
             f = (int) ((b.getPosicion().getY() - this.starty) / Bubble.HEIGHT);
             c = (int) ((b.getPosicion().getX() - this.startx) / Bubble.WIDTH);
             this.bubblegrid[f][c] = b;
-            //calculamos la posicion de la bola donde tenemos que moverla(dist*pos+1/2de la dist
+            //calculamos la posicion de la bola donde tenemos que moverla(dist*pos+1/2de la dist)
+            //La primera burbuja de la matriz
             b.setPosicion(new Point2D(this.startx + Bubble.WIDTH * c + Bubble.WIDTH / 2,
                     this.starty + Bubble.HEIGHT * f + Bubble.HEIGHT / 2));
             return true;
         } else {
+            //Recorremos la matriz de burbujas
             for (int i = 0; i < this.bubblegrid.length && !colision; i++) {
                 for (int j = 0; j < this.bubblegrid[i].length && !colision; j++) {
+                    //Le damos posicion  a las demas burbujas
                     if (this.bubblegrid[i][j] != null && b.getPosicion().distance(this.bubblegrid[i][j].getPosicion()) <= 16) {
                         b.stop();
                         colision = true;
                         f = (int) ((b.getPosicion().getY() - this.starty) / Bubble.HEIGHT);
                         c = (int) ((b.getPosicion().getX() - this.startx) / Bubble.WIDTH);
                         this.bubblegrid[f][c] = b;
+                        //Las burbuja en las filas pares
                         if (j % 2 == 0) {
-                            b.setPosicion(new Point2D( this.bubblegrid[f][c].getPosicion().getX() +  Bubble.WIDTH / 2  ,
-                                    f * Bubble.HEIGHT + this.starty + Bubble.HEIGHT / 2));
+                            b.setPosicion(new Point2D( this.startx + Bubble.WIDTH * c + Bubble.WIDTH / 2,
+                        this.starty + Bubble.HEIGHT * f + Bubble.HEIGHT / 2));
+                        //Las burbujas en las filas impares    
                         } else {
-                            b.setPosicion(new Point2D( this.bubblegrid[f][c].getPosicion().getX()  +  Bubble.WIDTH / 2 ,
-                                    f * Bubble.HEIGHT  + this.starty + Bubble.HEIGHT/2));
+                            c = (int)((b.getPosicion().getX() - this.startx - Bubble.WIDTH / 2) / Bubble.WIDTH);
+                            
+                            b.setPosicion(new Point2D( this.startx + Bubble.WIDTH * c + Bubble.WIDTH,
+                        this.starty + Bubble.HEIGHT * f + Bubble.HEIGHT / 2));
                         }
                     }
 
@@ -100,7 +107,10 @@ public class Ballgrid {
             return colision;
         }
     }
-
+    public void explosion (Bubble e){
+        
+    }
+    //Metodo para pintar las burbujas
     public void paint(GraphicsContext gc) {
         for (int i = 0; i < this.bubblegrid.length; i++) {
             for (int j = 0; j < this.bubblegrid[i].length; j++) {

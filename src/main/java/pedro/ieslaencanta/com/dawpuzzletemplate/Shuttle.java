@@ -65,7 +65,7 @@ public class Shuttle {
     public void setDebug(boolean debug) {
         this.debug = debug;
     }
-
+    //Metodo para generar una Burbuja
     private Bubble generateBall() {
         Bubble temp;
         temp = new Bubble();
@@ -83,6 +83,7 @@ public class Shuttle {
         
         return temp;
     }
+    //Se calcula la posicion del la imagen de la flecha
     public Point2D calcArrow(){
         Point2D p=null;
         if (this.getAngle()>=90 && this.getAngle()<=90){
@@ -156,12 +157,13 @@ public class Shuttle {
                 }
             }
         }
-        //if (this.actual != null){
-        //    this.actual.paint(gc);
-        //}
-        //if(this.next != null){
-        //    this.next.paint(gc);
-        //}
+        /*if (this.actual != null){
+           this.actual.paint(gc);
+        }
+        if(this.next != null){
+            this.next.paint(gc);
+        }
+        */
     }
 
     public void moveLeft() {
