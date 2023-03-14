@@ -91,11 +91,12 @@ public class Ballgrid {
                         this.bubblegrid[f][c] = b;
                         //Las burbuja en las filas pares
                         if (j % 2 == 0) {
+                            //c = (int)((b.getPosicion().getX() - this.startx - Bubble.WIDTH / 2) / Bubble.WIDTH);
                             b.setPosicion(new Point2D( this.startx + Bubble.WIDTH * c + Bubble.WIDTH / 2,
                         this.starty + Bubble.HEIGHT * f + Bubble.HEIGHT / 2));
                         //Las burbujas en las filas impares    
                         } else {
-                            c = (int)((b.getPosicion().getX() - this.startx - Bubble.WIDTH / 2) / Bubble.WIDTH);
+                           c = (int)((b.getPosicion().getX() - this.startx - Bubble.WIDTH / 2) / Bubble.WIDTH);
                             
                             b.setPosicion(new Point2D( this.startx + Bubble.WIDTH * c + Bubble.WIDTH,
                         this.starty + Bubble.HEIGHT * f + Bubble.HEIGHT / 2));
